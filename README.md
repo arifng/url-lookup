@@ -1,8 +1,10 @@
 # URL Lookup
 # Problem
-A website is using so-called “pretty” URLs to give users and bots a good impression of what the page is about, e.g.
-● http://www.example.com/Clothing/Women/
-● http://www.example.com/Fashion/
+A website is using so-called “pretty” URLs to give users and bots a good impression of what the page is about, e.g. 
+```
+- http://www.example.com/Clothing/Women/
+- http://www.example.com/Fashion/
+```
 All these combinations are mapped in a table with the following format:
 
 All these combinations are mapped in the following format:
@@ -21,9 +23,13 @@ You can see it as a key-value map between combinations of strictly ordered param
 1. Please implement scaling and performant service in Java to look up URLs in both ways (bi-directional lookup). When you are building a link and you can’t find an exact match, use the one that matches best (covers the biggest part of the URL from left to right):
 
 You are building a link for the following parameter combination:
-● /products?gender=female&tag=123&tag=1234&tag=5678
+```
+ /products?gender=female&tag=123&tag=1234&tag=5678
+```
 The mapping table doesn’t contain an exact match for it, so the best match would be:
-● /Women/Shoes/?tag=5678
+```
+ /Women/Shoes/?tag=5678
+```
 
 2. Please expose your service in a RESTful API with 2 endpoints, one of them receives a list of parameterized URLs and returns a list of corresponding pretty URLs, the other one receives a list of pretty URLs, and returns a list of corresponding parameterized URLs. Use a common framework for your business logic.
 
@@ -125,7 +131,7 @@ $ curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X GE
 - 1st of All, its a spring boot application, when it runs it first run script (`src/main/resources/data.sql`) to insert 
 url mappings in database. I have assumed that in production, the mapped urls should be stored in any relational database 
 like MySQL/PostgreSQL and don't need to run script.
-- 2nd, it initialize ehcache and created a cache region with name `stylight_url_cache`, configuration located in `resources` directory.
+- 2nd, it initialize ehcache and created a cache region with name `url_cache`, configuration located in `resources` directory.
 In production environment it should be redis cache which run standalone and independently. And multiple instance of this
 service will access same cache server if needed in scalable environment.
 - 3rd, I've added a custom configuration which run once and load all mapped url from database to cache.
